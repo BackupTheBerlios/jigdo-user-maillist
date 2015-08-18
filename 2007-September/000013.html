@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Neverending jigdo,	and jigdo-file print-missing shows many errors and no URLs
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jigdo-user/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20Neverending%20jigdo%2C%0A%09and%20jigdo-file%20print-missing%20shows%20many%20errors%20and%20no%20URLs&In-Reply-To=%3C11bb62160709202356qd832d0cjc997c70fda0fecb3%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000014.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Neverending jigdo,	and jigdo-file print-missing shows many errors and no URLs</H1>
+    <B>Brandon Hechinger</B> 
+    <A HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20Neverending%20jigdo%2C%0A%09and%20jigdo-file%20print-missing%20shows%20many%20errors%20and%20no%20URLs&In-Reply-To=%3C11bb62160709202356qd832d0cjc997c70fda0fecb3%40mail.gmail.com%3E"
+       TITLE="Neverending jigdo,	and jigdo-file print-missing shows many errors and no URLs">seaprogrammer at gmail.com
+       </A><BR>
+    <I>Fri Sep 21 08:56:38 CEST 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000014.html">Neverending jigdo, and jigdo-file print-missing shows many	errors and no URLs
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#13">[ date ]</a>
+              <a href="thread.html#13">[ thread ]</a>
+              <a href="subject.html#13">[ subject ]</a>
+              <a href="author.html#13">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello.  :)
+
+I am using jigdo-lite to get a recent Debian DVD .iso set. but I am
+re-running jigdo-lite over and over and each time it gets more packages and
+eventually returns to the prompt.
+I really can't tell what it's doing nor its status.
+
+Command:
+$ jigdo-lite debian-40r1-i386-DVD-1.jigdo  debian-40r1-i386-DVD-2.jigdo
+debian-40r1-i386-DVD-3.jigdo 2&gt;&amp;1 | tee.exe jg-log5.txt
+Output at: <A HREF="http://www.voyager.com/jg-log5.txt">http://www.voyager.com/jg-log5.txt</A>
+(It's numbered 5 but it's about the 20th run of jigdo-lite.  partway through
+I switched to a Berkeley mirror, and it's been about 5 runs on that site).
+
+Attempt to get status:
+$ jigdo-file print-missing --template debian-40r1-i386-DVD-1.template
+This displays a lot of errors to stderr, and 4667 md5 checksums, but no URLs
+at all.
+
+1: Label name contains invalid character `['
+2: Label name is not followed by `='
+3: Label name is not followed by `='
+4: Label name contains invalid character `]'
+5: Label name contains invalid character `['
+6: Label name is not followed by `='
+7: Label name contains invalid character `#'
+8: Label name contains invalid character `#'
+9: Label name is not followed by `='
+11: Label name contains invalid character `['
+...
+504: Label name contains invalid character `['
+505: Label name contains invalid character `['
+506: Label name contains invalid character `['
+MD5Sum:AAjcZ6V47aQlu1J0MLilWg
+MD5Sum:ABkvPqUUaJBEPANa_QYdrg
+MD5Sum:AB3CrRTQTkoCX1oD2i5l_w
+MD5Sum:ACWP8fjExUPQvFFVSvn2TA
+...
+MD5Sum:_-5VzvVqvfR-roR-EmcdNQ
+MD5Sum:_-7R48DG6yYtug7T0rvmyA
+end-of-file
+
+Help is appreciated.
+Thanks.
+...Brandon
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/jigdo-user/attachments/20070920/9d500c61/attachment.html">https://lists.berlios.de/pipermail/jigdo-user/attachments/20070920/9d500c61/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000014.html">Neverending jigdo, and jigdo-file print-missing shows many	errors and no URLs
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#13">[ date ]</a>
+              <a href="thread.html#13">[ thread ]</a>
+              <a href="subject.html#13">[ subject ]</a>
+              <a href="author.html#13">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jigdo-user">More information about the Jigdo-user
+mailing list</a><br>
+</body></html>

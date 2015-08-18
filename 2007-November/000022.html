@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Need explanations
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jigdo-user/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20Need%20explanations&In-Reply-To=%3C200711231540.lANFet312434%40cressida.cert.fr%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000021.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Need explanations</H1>
+    <B>Jean-Pierre Chretien</B> 
+    <A HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20Need%20explanations&In-Reply-To=%3C200711231540.lANFet312434%40cressida.cert.fr%3E"
+       TITLE="Need explanations">Jean-Pierre.Chretien at cert.fr
+       </A><BR>
+    <I>Fri Nov 23 16:40:55 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000021.html">Need explanations
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#22">[ date ]</a>
+              <a href="thread.html#22">[ thread ]</a>
+              <a href="subject.html#22">[ subject ]</a>
+              <a href="author.html#22">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+&gt;&gt;<i>X-Original-To: <A HREF="https://lists.berlios.de/mailman/listinfo/jigdo-user">jigdo-user at lists.berlios.de</A>
+</I>&gt;&gt;<i>Subject: Re: Need explanations
+</I>&gt;&gt;<i>From: Mehdi &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/jigdo-user">jmehdi at ubuntume.com</A>&gt;
+</I>&gt;&gt;<i>To: <A HREF="https://lists.berlios.de/mailman/listinfo/jigdo-user">jigdo-user at lists.berlios.de</A>
+</I>&gt;&gt;<i>Date: Fri, 23 Nov 2007 16:24:53 +0100
+</I>
+&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> &gt;&gt;Hi,
+</I>&gt;&gt;&gt;<i> &gt;&gt;
+</I>&gt;&gt;&gt;<i> &gt;&gt;I'm trying to provide a jigdo file for my custom ubuntu distro
+</I>&gt;&gt;&gt;<i> &gt;&gt;(www.ubuntume.com) ; I've used this example
+</I>&gt;&gt;&gt;<i> &gt;&gt;(<A HREF="http://atterer.net/jigdo/jigdo-file.html#EXAMPLES">http://atterer.net/jigdo/jigdo-file.html#EXAMPLES</A>) to build the jigdo
+</I>&gt;&gt;&gt;<i> &gt;&gt;and template files but I don't understand why the doc says &quot;As you don't
+</I>&gt;&gt;&gt;<i> &gt;&gt;want to waste space by effectively hosting the same data twice (once as
+</I>&gt;&gt;&gt;<i> &gt;&gt;files on the FTP server, once inside the image)&quot;. I have the files AND
+</I>&gt;&gt;&gt;<i> &gt;&gt;the iso image on my server... I don't understand how I could avoid that.
+</I>&gt;&gt;&gt;<i> 
+</I>&gt;&gt;&gt;<i> If you distribute the image via jigdo, you don't need to publish it:
+</I>&gt;&gt;&gt;<i> it will be reconstructed from the files and the template.
+</I>&gt;&gt;&gt;<i> So publishing the .jigdo, the .template and the files
+</I>&gt;&gt;&gt;<i> which are needed to reconstruct the image is enough.
+</I>&gt;&gt;&gt;<i> 
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>ok thanks, but is it useful in my case? I see the iso contains a
+</I>&gt;&gt;<i>filesystem.squashfs file, and its size is nearly the same as the iso. So
+</I>&gt;&gt;<i>even if I made minor updates I think this file will be downloaded each
+</I>&gt;&gt;<i>time...
+</I>
+As its name says, the aim of jigdo is to distribute the image in pieces,
+so if you want to distribute a non splittable unit of information,
+it won't be very effective.
+But it does not change the point: you may distribute either your
+filesystem.squashfs file as is, or the file, the template and the jigdo files,
+but you don't need to publish the .iso file in the latter case.
+
+If I want to publish a tree (say, bar/) into pieces, here are the steps I use  
+ - go to a place with enough room to work (e.g. /local/
+rsync -a bar /local
+cd /local
+ - make iso file
+mkisofs -v -J -r -d -D -f -l -L -N -o foo.iso bar 
+ - make jigdo stuff
+jigdo-file make-template -f --image=foo.iso --jigdo=/local/foo.jigdo \ 
+--template=/local/foo.template --label Label=/local/ \
+ --uri Label=<A HREF="http://&lt;where_to_publish">http://&lt;where_to_publish</A>&gt;  /local//bar/
+ - publish
+copy foo.jigdo foo.template bar/ in <A HREF="http://&lt;where_to_publish">http://&lt;where_to_publish</A>&gt; 
+
+-- 
+Jean-Pierre
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000021.html">Need explanations
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#22">[ date ]</a>
+              <a href="thread.html#22">[ thread ]</a>
+              <a href="subject.html#22">[ subject ]</a>
+              <a href="author.html#22">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jigdo-user">More information about the Jigdo-user
+mailing list</a><br>
+</body></html>

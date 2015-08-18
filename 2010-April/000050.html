@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> JigdoFUSE
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jigdo-user/2010-April/index.html" >
+   <LINK REL="made" HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20JigdoFUSE&In-Reply-To=%3C4BBBF759.5000100%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000049.html">
+   <LINK REL="Next"  HREF="000051.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>JigdoFUSE</H1>
+    <B>Neil M.</B> 
+    <A HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20JigdoFUSE&In-Reply-To=%3C4BBBF759.5000100%40gmail.com%3E"
+       TITLE="JigdoFUSE">nabber00 at gmail.com
+       </A><BR>
+    <I>Wed Apr  7 05:09:13 CEST 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000049.html">JigdoFUSE
+</A></li>
+        <LI>Next message: <A HREF="000051.html">JigdoFUSE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#50">[ date ]</a>
+              <a href="thread.html#50">[ thread ]</a>
+              <a href="subject.html#50">[ subject ]</a>
+              <a href="author.html#50">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 4/5/2010 4:39 AM, Mateusz Poszwa wrote:
+&gt;<i> Hello!
+</I>&gt;<i> 
+</I>&gt;<i> I am a second year student of Computer Science at Politechnika
+</I>&gt;<i> Pozna&#324;ska (Pozna&#324; University of Technology) and I would like to launch
+</I>&gt;<i> my first free software project. As it is using Jigdo I thought you
+</I>&gt;<i> would like to know about it.
+</I>&gt;<i> 
+</I>&gt;<i> The idea is to use FUSE to provide on-the-fly generated pieces of files
+</I>&gt;<i> offered by jigdo files. I think it might be useful in mirroring.
+</I>&gt;<i> As I said before it is going to be my first such project and I do not
+</I>&gt;<i> even know how to start. Do I need to host source of Jigdo or FUSE
+</I>&gt;<i> or anything I am using to fulfill the requirements of the license?
+</I>&gt;<i> (I know it is a silly question. I will accept &quot;Go read by yourself&quot; as
+</I>&gt;<i> an answer. ;) )
+</I>
+You probably only need to host the source code for your project.  If you
+are distributing a modified FUSE library or Jigsaw binaries then you
+need to provide source for those, but I don't think you should need
+either of those to be modified for what you are doing.
+
+&gt;<i> For now it &quot;just works&quot; - there is no sanity checking, error handling,
+</I>&gt;<i> optimisation... The code is ugly, but it can generate plenty of Debian
+</I>&gt;<i> images if configured properly.
+</I>&gt;<i> 
+</I>
+You should try verifying the checksums for the reassembled ISOs.  I
+tried creating a reassembly program almost two years ago now and wasn't
+able to get them to match, users will expect these to check out.  I
+believe the ISO file is still valid though.  You can find the
+documentation of my problem in the August 2008 mailing list archive.  My
+implementation is here at line 1137, mkiso():
+
+<A HREF="http://metalinks.svn.sourceforge.net/viewvc/metalinks/checker/metalink.py?view=markup">http://metalinks.svn.sourceforge.net/viewvc/metalinks/checker/metalink.py?view=markup</A>
+
+&gt;<i> You are the second to know about it (my friend was first) and I would
+</I>&gt;<i> like to know your opinion. I may also need help in the future
+</I>&gt;<i> (ie. I could not find any specification of template files - I figured it
+</I>&gt;<i> out myself, so JigdoFUSE may be incompatible with untested images).
+</I>&gt;<i> 
+</I>
+This is the closest you get to a specification:
+
+<A HREF="http://atterer.net/jigdo/debian-jigdo-mini-howto/x157.html">http://atterer.net/jigdo/debian-jigdo-mini-howto/x157.html</A>
+
+The Jigdo tools seem to do more than what is described here.  For this
+reason I would not recommend spending a lot of time trying to figure
+things out.  You will quickly get into doing a binary diff on large .iso
+files.
+
+&gt;<i> Thank you in advance for replying (It is quite quiet around here).
+</I>&gt;<i> Any critique welcome.
+</I>&gt;<i> 
+</I>&gt;<i> Oh, almost forgot; a quick temporary draft of project site with sources:
+</I>&gt;<i> <A HREF="http://old.pl.pl/src/c/JigdoFUSE/index.html">http://old.pl.pl/src/c/JigdoFUSE/index.html</A>
+</I>&gt;<i> 
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000049.html">JigdoFUSE
+</A></li>
+	<LI>Next message: <A HREF="000051.html">JigdoFUSE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#50">[ date ]</a>
+              <a href="thread.html#50">[ thread ]</a>
+              <a href="subject.html#50">[ subject ]</a>
+              <a href="author.html#50">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jigdo-user">More information about the Jigdo-user
+mailing list</a><br>
+</body></html>

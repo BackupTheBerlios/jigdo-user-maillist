@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> MD5Sum Problem with 0.7.3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jigdo-user/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20MD5Sum%20Problem%20with%200.7.3&In-Reply-To=%3C47C2B8A4.3050905%40runbox.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000026.html">
+   <LINK REL="Next"  HREF="000028.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>MD5Sum Problem with 0.7.3</H1>
+    <B>Eric A. Cottrell</B> 
+    <A HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20MD5Sum%20Problem%20with%200.7.3&In-Reply-To=%3C47C2B8A4.3050905%40runbox.com%3E"
+       TITLE="MD5Sum Problem with 0.7.3">wb1hbu at runbox.com
+       </A><BR>
+    <I>Mon Feb 25 13:46:28 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000026.html">MD5Sum Problem with 0.7.3
+</A></li>
+        <LI>Next message: <A HREF="000028.html">MD5Sum Problem with 0.7.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#27">[ date ]</a>
+              <a href="thread.html#27">[ thread ]</a>
+              <a href="subject.html#27">[ subject ]</a>
+              <a href="author.html#27">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+My .jigdo mirror file is:
+jigdoDir=&quot;/media/disk/debian40&quot;
+imageDir=&quot;/media/disk/debian-cd&quot;
+tmpDir=&quot;/media/disk/tmp&quot;
+debianMirror=&quot;file:/media/disk/debian&quot;
+nonusMirror=&quot;file:/media/disk/debian/non-US&quot;
+
+I added log lines before the md5sum check. The tmpDir variable is set
+properly but it is null when used in jigdoFile.
+
+2008-02-24 12:50:35: tmpDir: /media/disk/tmp
+2008-02-24 12:50:35: templateMD5: RCX6H6swQ76MpxkkjHzIzg
+2008-02-24 12:50:35: jigdoFile: jigdo-file --cache=/jigdo-cache.db --cache-expiry=1w --report=noprogress --no-check-files
+2008-02-24 12:50:35: template: debian-40r3-i386-DVD-1.template
+Could not open cache file: Permission denied
+
+
+73 Eric
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000026.html">MD5Sum Problem with 0.7.3
+</A></li>
+	<LI>Next message: <A HREF="000028.html">MD5Sum Problem with 0.7.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#27">[ date ]</a>
+              <a href="thread.html#27">[ thread ]</a>
+              <a href="subject.html#27">[ subject ]</a>
+              <a href="author.html#27">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jigdo-user">More information about the Jigdo-user
+mailing list</a><br>
+</body></html>

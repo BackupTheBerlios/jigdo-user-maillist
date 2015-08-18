@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> MD5Sum Problem with 0.7.3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jigdo-user/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20MD5Sum%20Problem%20with%200.7.3&In-Reply-To=%3C47C05874.4090003%40runbox.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000024.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>MD5Sum Problem with 0.7.3</H1>
+    <B>Eric A. Cottrell</B> 
+    <A HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20MD5Sum%20Problem%20with%200.7.3&In-Reply-To=%3C47C05874.4090003%40runbox.com%3E"
+       TITLE="MD5Sum Problem with 0.7.3">wb1hbu at runbox.com
+       </A><BR>
+    <I>Sat Feb 23 18:31:32 CET 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000024.html">MD5Sum Problem with 0.7.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#23">[ date ]</a>
+              <a href="thread.html#23">[ thread ]</a>
+              <a href="subject.html#23">[ subject ]</a>
+              <a href="author.html#23">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+I am trying to create Debian 4.0r2 DVD isos using jigdo-mirror and get
+the following errors.
+2008-02-23 12:04:36: imageDir:    /media/disk/debian-cd
+2008-02-23 12:04:36: jigdoDir:    /media/disk/debian40
+2008-02-23 12:04:36: templateDir:
+2008-02-23 12:04:36: Found `$jigdoDir/debian-40r3-i386-DVD-1.jigdo'
+2008-02-23 12:04:36:   Image `debian-40r3-i386-DVD-1.iso', template
+`debian-40r3-i386-DVD-1.template'
+2008-02-23 12:04:36:     Attempting to create
+`$imageDir/./debian-40r3-i386-DVD-1.iso'
+2008-02-23 12:04:36:     Found template
+`$templateDir/./debian-40r3-i386-DVD-1.template'
+Could not open cache file: No such file or directory
+2008-02-23 12:04:36:     Error - template checksum mismatch
+2008-02-23 12:04:53: Found `$jigdoDir/debian-40r3-i386-DVD-2.jigdo'
+... and so on
+
+I get the same errors on openSUSE 10.3 (both with bin and compiled
+source) and Debian 4.0 systems.  If I run jigdo-file md5sum on the
+template files I get the same md5sum value as the value in the jigdo file.
+
+I did some testing and it seemed like the following lines in
+jigdo-mirror do not work properly.
+    # If possible, check md5sum of template data
+    if test &quot;$templateMD5&quot;; then
+        set -- `$jigdoFile md5sum --report=quiet &quot;template&quot;`
+        if test &quot;$1&quot; = &quot;$templateMD5&quot;; then
+            log &quot;    Template checksum is correct&quot;
+        else
+            log &quot;    Error - template checksum mismatch&quot;
+            exitCode=1
+            rm -f &quot;image&quot; &quot;template&quot;
+            return 0
+        fi
+    else
+        log &quot;    [WARNING - \`Template-MD5Sum' missing from image section]&quot;
+    fi
+
+If I echo the $1 value after the set -- line in my test script, it
+outputs the command line instead of the md5sum value. I am not familiar
+enough with bash scripts to figure out what is wrong or if I am doing
+proper debugging.
+
+73 Eric
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000024.html">MD5Sum Problem with 0.7.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#23">[ date ]</a>
+              <a href="thread.html#23">[ thread ]</a>
+              <a href="subject.html#23">[ subject ]</a>
+              <a href="author.html#23">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jigdo-user">More information about the Jigdo-user
+mailing list</a><br>
+</body></html>

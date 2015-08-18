@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Jigdo Assembly Implementation Problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jigdo-user/2008-August/index.html" >
+   <LINK REL="made" HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20Jigdo%20Assembly%20Implementation%20Problem&In-Reply-To=%3C48A91328.3060303%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000041.html">
+   <LINK REL="Next"  HREF="000043.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Jigdo Assembly Implementation Problem</H1>
+    <B>Neil M.</B> 
+    <A HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20Jigdo%20Assembly%20Implementation%20Problem&In-Reply-To=%3C48A91328.3060303%40gmail.com%3E"
+       TITLE="Jigdo Assembly Implementation Problem">nabber00 at gmail.com
+       </A><BR>
+    <I>Mon Aug 18 08:14:00 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000041.html">Jigdo Assembly Implementation Problem
+</A></li>
+        <LI>Next message: <A HREF="000043.html">Jigdo Assembly Implementation Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#42">[ date ]</a>
+              <a href="thread.html#42">[ thread ]</a>
+              <a href="subject.html#42">[ subject ]</a>
+              <a href="author.html#42">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Yes I've done a diff on the two.  I can't make heads or tails of it.  It
+looks like everything starts out OK, I'm assuming this part is the
+decompressed template file.  Its mostly zeroes.  Then I get lost,
+sometimes the data just doesn't match, other times I have data where
+there should be zeroes.  Looks like the start of the difference could be
+that the real ISO has some sort of table of contents and I'm missing
+that for some reason.
+
+I don't know anything about ISO format so its going to be hard for me to
+tell whats wrong.  Do you do anything to the ISO besides replace files
+with checksums and and compress it to create the template?
+
+Any idea why the file sizes don't even match?  I'm about 60 MB short of
+the original ISO image size when I build mine from the template.  The
+assembly portion is really just those 30 lines of code.  All the rest is
+downloading and parsing the files.  I figure there has to be something
+wrong there if I'm not even getting the right file size and all the
+individual file checksums are OK.
+
+Neil
+
+Richard Atterer wrote:
+&gt;<i> Hi Neil,
+</I>&gt;<i> 
+</I>&gt;<i> great to hear you're adding jigdo support to your app! Unfortunately, it 
+</I>&gt;<i> looks like I would have to read more than the 30 lines of code to 
+</I>&gt;<i> understand fully what you're doing. Maybe you can compare your generated 
+</I>&gt;<i> .iso with the original/correct .iso in more detail? From the differences, 
+</I>&gt;<i> it should quickly become clear where the bug is.
+</I>&gt;<i> 
+</I>&gt;<i> Cheers,
+</I>&gt;<i> 
+</I>&gt;<i>   Richard
+</I>&gt;<i> 
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000041.html">Jigdo Assembly Implementation Problem
+</A></li>
+	<LI>Next message: <A HREF="000043.html">Jigdo Assembly Implementation Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#42">[ date ]</a>
+              <a href="thread.html#42">[ thread ]</a>
+              <a href="subject.html#42">[ subject ]</a>
+              <a href="author.html#42">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jigdo-user">More information about the Jigdo-user
+mailing list</a><br>
+</body></html>

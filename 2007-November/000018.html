@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Using Jigdo to Release Fedora
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jigdo-user/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20Using%20Jigdo%20to%20Release%20Fedora&In-Reply-To=%3C20071119231751.GA14177%40vilya%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000017.html">
+   <LINK REL="Next"  HREF="000019.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Using Jigdo to Release Fedora</H1>
+    <B>Richard Atterer</B> 
+    <A HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20Using%20Jigdo%20to%20Release%20Fedora&In-Reply-To=%3C20071119231751.GA14177%40vilya%3E"
+       TITLE="Using Jigdo to Release Fedora">richard at 2007.atterer.net
+       </A><BR>
+    <I>Tue Nov 20 00:17:51 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000017.html">Using Jigdo to Release Fedora
+</A></li>
+        <LI>Next message: <A HREF="000019.html">Need explanations
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#18">[ date ]</a>
+              <a href="thread.html#18">[ thread ]</a>
+              <a href="subject.html#18">[ subject ]</a>
+              <a href="author.html#18">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+you're talking about submitting patches - against jigdo-lite? Or are you 
+planning to continue work on the GUI?? The latter would be extremely cool. 
+The former might produce results quicker, but let me warn you that shell 
+programming is not fun, especially if you want to support at least a 
+handful of different shell implementations under various OSes. :)
+
+
+On Sun, Nov 18, 2007 at 04:21:32PM +0100, Jeroen van Meeuwen (Fedora Project) wrote:
+&gt;<i> 1) Make use of a [mirrorlist] section before [servers] is being parsed.
+</I>&gt;<i> 
+</I>&gt;<i> This way (walking over the items in the [mirrorlist] section, we can 
+</I>&gt;<i> extend, or build, the [servers] section in a way that we like; making 
+</I>&gt;<i> full use of our mirrors; It'd just require a list of mirrors to be 
+</I>&gt;<i> served at any given location, and it would be prepended to the list of 
+</I>&gt;<i> servers. This means the mirrorlist is being 'cached' (or actually just 
+</I>&gt;<i> generated once and used further on). It would look like the following
+</I>&gt;<i> 
+</I>&gt;<i> [Servers]
+</I>&gt;<i> LabelA=<A HREF="http://mymirror.org/packages">http://mymirror.org/packages</A>
+</I>&gt;<i> 
+</I>&gt;<i> [MirrorList]
+</I>&gt;<i> LabelA=<A HREF="http://mirrorlist.org/mycountry">http://mirrorlist.org/mycountry</A>
+</I>&gt;<i> LabelA=<A HREF="http://mirrorlist.org/myworld">http://mirrorlist.org/myworld</A>
+</I>&gt;<i> 
+</I>&gt;<i> while jigdo-lite or the GUI actually uses:
+</I>&gt;<i> 
+</I>&gt;<i> [Servers]
+</I>&gt;<i> LabelA=<A HREF="http://nl1.mirror.org/packages">http://nl1.mirror.org/packages</A> (from 'mycountry')
+</I>&gt;<i> LabelA=<A HREF="http://nl1.mirror.org/packages">http://nl1.mirror.org/packages</A> (from 'mycountry')
+</I>&gt;<i> LabelA=<A HREF="http://de1.mirror.org/packages">http://de1.mirror.org/packages</A> (from 'myworld')
+</I>&gt;<i> LabelA=<A HREF="http://us1.mirror.org/packages">http://us1.mirror.org/packages</A> (from 'myworld')
+</I>&gt;<i> LabelA=<A HREF="http://mymirror.org/packages">http://mymirror.org/packages</A>
+</I>
+Should entries in [MirrorList] behave more or less like jigdo-lite 
+currently does for the special-case label name &quot;Debian&quot;? With &quot;Debian&quot;, it 
+prompts you to select one mirror from the list of Debian mirrors (which is 
+supplied with jigdo-lite - I know, it's a bit of a hack!)
+
+Actually, for the GUI I was thinking of the following syntax:
+[Servers]
+LabelA=<A HREF="http://nl1.mirror.org/packages">http://nl1.mirror.org/packages</A> --priority=2
+LabelA=<A HREF="http://de1.mirror.org/packages">http://de1.mirror.org/packages</A> --priority=2
+LabelA=<A HREF="http://mymirror.org/packages">http://mymirror.org/packages</A> --priority=1
+
+i.e. the first two mirrors would be interpreted as equal, preferred sources 
+- the user should be asked or the best server picked automatically. Only if 
+a file cannot be found on the first set of mirrors, lower-priority mirrors 
+will be used.
+
+For Debian, there is actually a valid use case for three levels of mirrors; 
+snapshot.debian.net contains copies of many many old Debian package 
+versions, but should not be used unless really necessary (--priority=0), 
+because of bandwidth limitations.
+
+[I'm sure I wrote down all my planned extensions to the .jigdo format 
+somewhere, but I can't find the file right now. :-/ ]
+
+&gt;<i> [...snip...]
+</I>&gt;<i> &gt; The way this was envisioned by me for the jigdo GUI client (and it's 
+</I>&gt;<i> &gt; already implemented there!) was to have people add an
+</I>&gt;<i> &gt; &quot;[Include <A HREF="http://example.org/mirrormgr.php">http://example.org/mirrormgr.php</A>]&quot; line inside the .jigdo file. 
+</I>&gt;<i>
+</I>&gt;<i> Presumably we could already make full use of this or similar eliminating 
+</I>&gt;<i> any need for the above mentioned mirrorlist/server, if only we could 
+</I>&gt;<i> specify a label for the include -which is primarily of concern when 
+</I>&gt;<i> having multiple images in one .jigdo. Besides, Fedora MirrorManager 
+</I>&gt;<i> doesn't have 'weighted' mirrors.
+</I>
+Ah, OK - so you mean, what is included is just a list of URLs, and you want 
+those URLs to be associated with a label?
+Hmm, the easy solution would be: Preprocess the mirror list on the server 
+side, adding a [Servers] line and a &quot;LabelA=&quot; prefix. ;-)
+Otherwise, your proposed syntax is OK, or alternatively something like the 
+following:
+
+[Servers]
+LabelA=<A HREF="http://mirrorlist.org/mycountry">http://mirrorlist.org/mycountry</A> --url-list
+
+Actually, after thinking about it for a while, I cannot find any real 
+reason why this should be better than your proposed syntax. I'd somehow 
+prefer it, but yours is also fine, it's up to you! :)
+
+[jigdo GUI code]
+&gt;<i> &gt; Anyone who starts work on it (including me) will need a while to find 
+</I>&gt;<i> &gt; their way around.
+</I>&gt;<i> 
+</I>&gt;<i> As do I (have been browsing the code for a while now looking for the best 
+</I>&gt;<i> way to change anything so that I can see the effects and learn what it is 
+</I>&gt;<i> the code does exactly) ;-)
+</I>
+Have you read the stuff towards the end of doc/Hacking.txt? There is a 
+little high-level explanation of the different parts of the code.
+
+Cheers,
+
+  Richard
+
+-- 
+  __   _
+  |_) /|  Richard Atterer     |  GnuPG key: 888354F7
+  | \/&#175;|  <A HREF="http://atterer.net">http://atterer.net</A>  |  08A9 7B7D 3D13 3EF2 3D25  D157 79E6 F6DC 8883 54F7
+  &#175; '` &#175;
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000017.html">Using Jigdo to Release Fedora
+</A></li>
+	<LI>Next message: <A HREF="000019.html">Need explanations
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#18">[ date ]</a>
+              <a href="thread.html#18">[ thread ]</a>
+              <a href="subject.html#18">[ subject ]</a>
+              <a href="author.html#18">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jigdo-user">More information about the Jigdo-user
+mailing list</a><br>
+</body></html>

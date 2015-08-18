@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Using Jigdo to Release Fedora
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jigdo-user/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20Using%20Jigdo%20to%20Release%20Fedora&In-Reply-To=%3C20071116165647.GA22919%40vilya%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000015.html">
+   <LINK REL="Next"  HREF="000017.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Using Jigdo to Release Fedora</H1>
+    <B>Richard Atterer</B> 
+    <A HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20Using%20Jigdo%20to%20Release%20Fedora&In-Reply-To=%3C20071116165647.GA22919%40vilya%3E"
+       TITLE="Using Jigdo to Release Fedora">richard at 2007.atterer.net
+       </A><BR>
+    <I>Fri Nov 16 17:56:47 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000015.html">Using Jigdo to Release Fedora
+</A></li>
+        <LI>Next message: <A HREF="000017.html">Using Jigdo to Release Fedora
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#16">[ date ]</a>
+              <a href="thread.html#16">[ thread ]</a>
+              <a href="subject.html#16">[ subject ]</a>
+              <a href="author.html#16">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Jeroen,
+
+thanks for your interest in using jigdo for Fedora (Unity)!
+
+The bad news first: I have very little spare time these days, so I'm afraid 
+that for any major changes, someone else would have to pick up jigdo 
+development. I'll be happy to help you in any way I can, though - e.g. 
+officially transferring maintenance of the code to an interested group of 
+people would be very welcome!
+
+On Tue, Nov 13, 2007 at 11:49:09AM +0100, Jeroen van Meeuwen (Fedora Project) wrote:
+&gt;<i> More information on the proposed feature can be obtained from:
+</I>&gt;<i> 
+</I>&gt;<i> <A HREF="http://fedoraproject.org/wiki/Features/JigdoRelease">http://fedoraproject.org/wiki/Features/JigdoRelease</A>
+</I>
+WRT the constraints mentioned:
+
+* .jigdo files with multiple images: For some reason, the thought that one 
+.jigdo file corresponds to one image appears to be firmly planted in 
+people's minds. That made me &quot;deprecate&quot; the multi-image format while 
+writing the jigdo GUI client. (The &quot;include&quot; functionality supported by the 
+GUI app can be used to avoid duplicate content in related .jigdo files.) 
+But I don't have a strong opinion on this...
+
+* Parallel downloads: Were planned for the GUI client. Doing this in the 
+shell script is definitely not something I would like to do. I've found out 
+that using shell scripting for any non-trivial program is a bad idea. IMHO 
+the current jigdo-lite code has reached the maximum possible complexity 
+where it is still maintainable - pull a little at any end now and something 
+will fall over at another end. :-/
+
+* Manually adding [Servers] section: Yes - the idea is that any non-trivial 
+additions to the .jigdo file should be done by a script after running 
+jigdo-file, jigdo-file cannot support direct generation of all possible 
+server/mirror setups.
+
+&gt;<i> - We found that Jigdo currently is unable to thread a number of requests 
+</I>&gt;<i> in parallel so that it -if it did- makes optimal use of the available 
+</I>&gt;<i> resources in case the bandwidth availability between the client and a 
+</I>&gt;<i> mirror is sufficient; as many files are actually small files currently 
+</I>&gt;<i> we find that obtaining the files one after another takes rather long. We 
+</I>&gt;<i> would love to investigate how we could optimize this by threading.
+</I>
+The correct way to make full use of the bandwidth is actually to use HTTP 
+persistent connections and HTTP pipelining. This is supported by libcurl, 
+which the jigdo GUI uses. It is more efficient for the server than 
+individual parallel requests. The HTTP standard even strongly recommends 
+that applications not open more than 2 concurrent TCP connections to any 
+host.
+
+For the Debian mirrors, some mirror maintainers were actually concerned 
+that the many seeks caused by a jigdo download will decrease overall 
+performance. Multiple connections per client might turn this into even more 
+of a problem. But multiple connections to *different* mirrors are no 
+problem!
+
+(BTW, a completely different approach to solving the problem is to let 
+image generation happen on the fly on the server; see &quot;CGI-like program for 
+on-the-fly creation from .jigdo/.template files&quot; in 
+&lt;<A HREF="http://cvs.berlios.de/cgi-bin/viewcvs.cgi/jigdo/jigdo/doc/Hacking.txt?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">http://cvs.berlios.de/cgi-bin/viewcvs.cgi/jigdo/jigdo/doc/Hacking.txt?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup</A>&gt;)
+
+&gt;<i> - While the Fedora Project uses &quot;MirrorManager&quot; to direct clients to a 
+</I>&gt;<i> (list of) local mirrors, we would like Jigdo to be able to 'cache' the 
+</I>&gt;<i> mirror list returned by MirrorManager and use these mirrors constantly, 
+</I>&gt;<i> instead of hitting the mirrorlist for each request (e.g. each file). Not 
+</I>&gt;<i> being able to do so, we fear, results in overloading MirrorManager as per 
+</I>&gt;<i> ISO image, approximately 4000 requests would have to be made.
+</I>
+The way this was envisioned by me for the jigdo GUI client (and it's 
+already implemented there!) was to have people add an
+&quot;[Include <A HREF="http://example.org/mirrormgr.php">http://example.org/mirrormgr.php</A>]&quot; line inside the .jigdo file. 
+The server-side PHP script would then output a mirror list with 
+appropriately weighted mirrors. Based on a scoring algorithm, jigdo would 
+then try the suggested mirrors first, but fall back to less appropriate 
+ones for multiple parallel downloads or if a file was not found. A mirror's 
+overall score was planned to decrease if it was too slow or there were too 
+many 404s.
+
+jigdo-lite doesn't support this, you'd have to create the .jigdo files 
+dynamically using PHP. :-/
+
+&gt;<i> - The Jigdo GUI client. Well, we could certainly help out here.
+</I>
+That would be awesome!!! :-)
+My estimate is that the GUI client is about 80% done. Unfortunately, other 
+things in life caused me to abandon work on this quite a while ago, and I 
+definitely won't have any time to work on it in the next months. :-(
+
+The code should be in fairly good shape; it is well-documented, the UI 
+parts are cleanly separated from the application logic etc. OTOH, the 
+different C++ classes are also fairly complex, I may have been carried away 
+a bit trying to write a generic, extensible application. Anyone who starts 
+work on it (including me) will need a while to find their way around.
+
+&gt;<i> Other then these issues which we expect might be relevant to big 
+</I>&gt;<i> releases such as official Fedora Project Releases, let me tell you that 
+</I>&gt;<i> Fedora Unity (again, not the same ;p), has successfully released a 
+</I>&gt;<i> number of custom spins via Jigdo[3], and is very, very satisfied with 
+</I>&gt;<i> the results ;-)
+</I>
+Great, thanks! :)
+
+Cheers,
+
+  Richard
+
+-- 
+  __   _
+  |_) /|  Richard Atterer     |  GnuPG key: 888354F7
+  | \/&#175;|  <A HREF="http://atterer.net">http://atterer.net</A>  |  08A9 7B7D 3D13 3EF2 3D25  D157 79E6 F6DC 8883 54F7
+  &#175; '` &#175;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/jigdo-user/attachments/20071116/012bdfb8/attachment.pgp">https://lists.berlios.de/pipermail/jigdo-user/attachments/20071116/012bdfb8/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000015.html">Using Jigdo to Release Fedora
+</A></li>
+	<LI>Next message: <A HREF="000017.html">Using Jigdo to Release Fedora
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#16">[ date ]</a>
+              <a href="thread.html#16">[ thread ]</a>
+              <a href="subject.html#16">[ subject ]</a>
+              <a href="author.html#16">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jigdo-user">More information about the Jigdo-user
+mailing list</a><br>
+</body></html>

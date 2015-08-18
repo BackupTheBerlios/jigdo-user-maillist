@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Jigdo Assembly Implementation Problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jigdo-user/2008-August/index.html" >
+   <LINK REL="made" HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20Jigdo%20Assembly%20Implementation%20Problem&In-Reply-To=%3C48AA787E.8010504%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000043.html">
+   <LINK REL="Next"  HREF="000045.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Jigdo Assembly Implementation Problem</H1>
+    <B>Neil M.</B> 
+    <A HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20Jigdo%20Assembly%20Implementation%20Problem&In-Reply-To=%3C48AA787E.8010504%40gmail.com%3E"
+       TITLE="Jigdo Assembly Implementation Problem">nabber00 at gmail.com
+       </A><BR>
+    <I>Tue Aug 19 09:38:38 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000043.html">Jigdo Assembly Implementation Problem
+</A></li>
+        <LI>Next message: <A HREF="000045.html">Jigdo Assembly Implementation Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#44">[ date ]</a>
+              <a href="thread.html#44">[ thread ]</a>
+              <a href="subject.html#44">[ subject ]</a>
+              <a href="author.html#44">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+
+Richard Atterer wrote:
+&gt;<i> On Sun, Aug 17, 2008 at 11:14:00PM -0700, Neil M. wrote:
+</I>&gt;&gt;<i> Yes I've done a diff on the two.  I can't make heads or tails of it. 
+</I>&gt;&gt;<i> [...]
+</I>&gt;<i> 
+</I>&gt;<i> Maybe try running your &quot;wrong&quot; .iso through &quot;jigdo-file make-template&quot; 
+</I>&gt;<i> again, let jigdo-file find the positions of files within it. Then look at 
+</I>&gt;<i> the .template contents with &quot;jigdo-file list-template&quot;, and it might become 
+</I>&gt;<i> easier to see where offsets start to go wrong, whether the original files 
+</I>&gt;<i> are still found etc.
+</I>&gt;<i> 
+</I>
+Interesting idea, I got even more interesting results.  Make-template
+finds all but 3 of the files from the original .jigdo file.  I have
+verified that my code writes these files to the image.  Then I'm left
+with a 13 MB .template file.  Gzip compressed original .template is
+BIGGER, about 26 MB.  Any idea how that works?
+
+&gt;<i> 
+</I>&gt;&gt;<i> The assembly portion is really just those 30 lines of code.  All the rest 
+</I>&gt;&gt;<i> is downloading and parsing the files.  I figure there has to be something 
+</I>&gt;&gt;<i> wrong there if I'm not even getting the right file size and all the 
+</I>&gt;&gt;<i> individual file checksums are OK.
+</I>&gt;<i> 
+</I>&gt;<i> The wrong file size could also result from a mistake while you parse the 
+</I>&gt;<i> .template
+</I>
+Not in this case, the decompressed template checks out.  The size
+matches that described in the .template data header.  Or am I missing
+something else there?
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000043.html">Jigdo Assembly Implementation Problem
+</A></li>
+	<LI>Next message: <A HREF="000045.html">Jigdo Assembly Implementation Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#44">[ date ]</a>
+              <a href="thread.html#44">[ thread ]</a>
+              <a href="subject.html#44">[ subject ]</a>
+              <a href="author.html#44">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jigdo-user">More information about the Jigdo-user
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Using Jigdo to Release Fedora
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jigdo-user/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20Using%20Jigdo%20to%20Release%20Fedora&In-Reply-To=%3C47398125.7080809%40fedoraproject.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000016.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Using Jigdo to Release Fedora</H1>
+    <B>Jeroen van Meeuwen (Fedora Project)</B> 
+    <A HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20Using%20Jigdo%20to%20Release%20Fedora&In-Reply-To=%3C47398125.7080809%40fedoraproject.org%3E"
+       TITLE="Using Jigdo to Release Fedora">kanarip at fedoraproject.org
+       </A><BR>
+    <I>Tue Nov 13 11:49:09 CET 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000016.html">Using Jigdo to Release Fedora
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello all,
+
+I am the owner of a proposed feature for Fedora 9, which is to have 
+Fedora 9 released via Jigdo.
+
+More information on the proposed feature can be obtained from:
+
+<A HREF="http://fedoraproject.org/wiki/Features/JigdoRelease">http://fedoraproject.org/wiki/Features/JigdoRelease</A>
+
+Note that this proposal is not mutually exclusive with current 
+distribution methods in use by the Fedora Project[1] -BitTorrent and 
+full ISO images being mirrored.
+
+As you can see in the document I've listed a number of restraints we 
+found Jigdo currently has, and I would like to help get these issues 
+resolved upstream as much as possible.
+
+Also note that the mentioning of pyJigdo in the document is Fedora 
+Unity's[2] (not the official Fedora Project) 'quick and dirty' 
+work-around for batch-processing and mirroring slices amongst a limited 
+number of private mirrors. It is most definitely not targeted to be a 
+replacement in any way; in fact it merely invokes jigdo-lite any given 
+number of times.
+
+As I said I was hoping to be able to resolve the issues we've found with 
+using Jigdo for releases of spins of Fedora (be it Fedora Unity Re-Spins 
+or the actual official Fedora Project Releases) with you, and in 
+upstream Jigdo.
+
+So what are the issues at this moment? Let me emphasize that we may not 
+be using Jigdo the correct way; there may be a number of settings or 
+tweaks available that I don't know of.
+
+- We found that Jigdo currently is unable to thread a number of requests 
+in parallel so that it -if it did- makes optimal use of the available 
+resources in case the bandwidth availability between the client and a 
+mirror is sufficient; as many files are actually small files currently 
+we find that obtaining the files one after another takes rather long. We 
+would love to investigate how we could optimize this by threading.
+
+- While the Fedora Project uses &quot;MirrorManager&quot; to direct clients to a 
+(list of) local mirrors, we would like Jigdo to be able to 'cache' the 
+mirror list returned by MirrorManager and use these mirrors constantly, 
+instead of hitting the mirrorlist for each request (e.g. each file). Not 
+being able to do so, we fear, results in overloading MirrorManager as 
+per ISO image, approximately 4000 requests would have to be made.
+
+- When files contain a '+' character (such as gcc-c++.rpm), in 
+combination with our MirrorManager, jigdo-lite will not be able to 
+actually achieve the file. This may be a MirrorManager bug and have 
+nothing to do with jigdo-lite not being able to retrieve the file, but I 
+thought I'd mention it as right now we just manually replace each '+' in 
+the .jigdo for '%2b' and things start to work.
+
+- The Jigdo GUI client. Well, we could certainly help out here.
+
+Other then these issues which we expect might be relevant to big 
+releases such as official Fedora Project Releases, let me tell you that 
+Fedora Unity (again, not the same ;p), has successfully released a 
+number of custom spins via Jigdo[3], and is very, very satisfied with 
+the results ;-)
+
+If you don't mind please let me know what you think, I'm very interested 
+in any comments (on the 'issues' or 'concerns' presented as well as the 
+Proposed Feature document).
+
+Thank you in advance,
+
+Kind regards,
+
+Jeroen van Meeuwen
+-kanarip
+
+Fedora Project Contributor
+Fedora Unity Founder
+
+[1] Fedora Project Website -
+     <A HREF="http://fedoraproject.org">http://fedoraproject.org</A>
+[2] Fedora Unity Website -
+     <A HREF="http://fedoraunity.org">http://fedoraunity.org</A>
+[3] Fedora Unity Spins Release Via Jigdo -
+     <A HREF="http://spins.fedoraunity.org">http://spins.fedoraunity.org</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000016.html">Using Jigdo to Release Fedora
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jigdo-user">More information about the Jigdo-user
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Neverending jigdo, and jigdo-file print-missing shows many	errors and no URLs
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jigdo-user/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20Neverending%20jigdo%2C%20and%20jigdo-file%20print-missing%20shows%20many%0A%09errors%20and%20no%20URLs&In-Reply-To=%3C20070924113817.GA11504%40fluff.lan%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000013.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Neverending jigdo, and jigdo-file print-missing shows many	errors and no URLs</H1>
+    <B>Richard Atterer</B> 
+    <A HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20Neverending%20jigdo%2C%20and%20jigdo-file%20print-missing%20shows%20many%0A%09errors%20and%20no%20URLs&In-Reply-To=%3C20070924113817.GA11504%40fluff.lan%3E"
+       TITLE="Neverending jigdo, and jigdo-file print-missing shows many	errors and no URLs">richard at 2007.atterer.net
+       </A><BR>
+    <I>Mon Sep 24 13:38:17 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000013.html">Neverending jigdo,	and jigdo-file print-missing shows many errors and no URLs
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#14">[ date ]</a>
+              <a href="thread.html#14">[ thread ]</a>
+              <a href="subject.html#14">[ subject ]</a>
+              <a href="author.html#14">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Brandon,
+
+On Thu, Sep 20, 2007 at 11:56:38PM -0700, Brandon Hechinger wrote:
+&gt;<i> $ jigdo-lite debian-40r1-i386-DVD-1.jigdo  debian-40r1-i386-DVD-2.jigdo
+</I>&gt;<i> debian-40r1-i386-DVD-3.jigdo 2&gt;&amp;1 | tee.exe jg-log5.txt
+</I>&gt;<i> Output at: <A HREF="http://www.voyager.com/jg-log5.txt">http://www.voyager.com/jg-log5.txt</A>
+</I>
+The content in that particular file looks mostly OK - this behaviour may 
+occur if the jigdo file is outdated, which causes jigdo-lite to attempt 
+downloads from alternative locations.
+
+&gt;<i> Attempt to get status:
+</I>&gt;<i> $ jigdo-file print-missing --template debian-40r1-i386-DVD-1.template
+</I>&gt;<i> This displays a lot of errors to stderr, and 4667 md5 checksums, but no URLs
+</I>&gt;<i> at all.
+</I>&gt;<i> 
+</I>&gt;<i> 1: Label name contains invalid character `['
+</I>&gt;<i> 2: Label name is not followed by `='
+</I>...
+
+Indeed, very strange. Looks like the format of the jigdo file is completely 
+wrong. :-/ What does it look like? Maybe it was subject to some sort of 
+automatic conversion by accident? Maybe try to have jigdo-lite directly 
+download the .jigdo itself, by specifying a URL (instead of a filename) on 
+the command line.
+
+Cheers,
+
+  Richard
+
+-- 
+  __   _
+  |_) /|  Richard Atterer     |  GnuPG key: 888354F7
+  | \/&#175;|  <A HREF="http://atterer.net">http://atterer.net</A>  |  08A9 7B7D 3D13 3EF2 3D25  D157 79E6 F6DC 8883 54F7
+  &#175; '` &#175;
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000013.html">Neverending jigdo,	and jigdo-file print-missing shows many errors and no URLs
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#14">[ date ]</a>
+              <a href="thread.html#14">[ thread ]</a>
+              <a href="subject.html#14">[ subject ]</a>
+              <a href="author.html#14">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jigdo-user">More information about the Jigdo-user
+mailing list</a><br>
+</body></html>

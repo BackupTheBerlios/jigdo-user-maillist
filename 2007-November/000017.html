@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Using Jigdo to Release Fedora
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jigdo-user/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20Using%20Jigdo%20to%20Release%20Fedora&In-Reply-To=%3C4740587C.6050400%40fedoraproject.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000016.html">
+   <LINK REL="Next"  HREF="000018.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Using Jigdo to Release Fedora</H1>
+    <B>Jeroen van Meeuwen (Fedora Project)</B> 
+    <A HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20Using%20Jigdo%20to%20Release%20Fedora&In-Reply-To=%3C4740587C.6050400%40fedoraproject.org%3E"
+       TITLE="Using Jigdo to Release Fedora">kanarip at fedoraproject.org
+       </A><BR>
+    <I>Sun Nov 18 16:21:32 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000016.html">Using Jigdo to Release Fedora
+</A></li>
+        <LI>Next message: <A HREF="000018.html">Using Jigdo to Release Fedora
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#17">[ date ]</a>
+              <a href="thread.html#17">[ thread ]</a>
+              <a href="subject.html#17">[ subject ]</a>
+              <a href="author.html#17">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Richard Atterer wrote:
+&gt;<i> Hello Jeroen,
+</I>&gt;<i> 
+</I>&gt;<i> thanks for your interest in using jigdo for Fedora (Unity)!
+</I>&gt;<i> 
+</I>&gt;<i> The bad news first: I have very little spare time these days, so I'm afraid 
+</I>&gt;<i> that for any major changes, someone else would have to pick up jigdo 
+</I>&gt;<i> development. I'll be happy to help you in any way I can, though - e.g. 
+</I>&gt;<i> officially transferring maintenance of the code to an interested group of 
+</I>&gt;<i> people would be very welcome!
+</I>&gt;<i> 
+</I>
+Thank you for taking the time with us ;-)
+
+I would like to present you at first with two patches:
+
+1) Make use of a [mirrorlist] section before [servers] is being parsed.
+
+This way (walking over the items in the [mirrorlist] section, we can 
+extend, or build, the [servers] section in a way that we like; making 
+full use of our mirrors; It'd just require a list of mirrors to be 
+served at any given location, and it would be prepended to the list of 
+servers. This means the mirrorlist is being 'cached' (or actually just 
+generated once and used further on). It would look like the following
+
+[Servers]
+LabelA=<A HREF="http://mymirror.org/packages">http://mymirror.org/packages</A>
+
+[MirrorList]
+LabelA=<A HREF="http://mirrorlist.org/mycountry">http://mirrorlist.org/mycountry</A>
+LabelA=<A HREF="http://mirrorlist.org/myworld">http://mirrorlist.org/myworld</A>
+
+while jigdo-lite or the GUI actually uses:
+
+[Servers]
+LabelA=<A HREF="http://nl1.mirror.org/packages">http://nl1.mirror.org/packages</A> (from 'mycountry')
+LabelA=<A HREF="http://nl1.mirror.org/packages">http://nl1.mirror.org/packages</A> (from 'mycountry')
+LabelA=<A HREF="http://de1.mirror.org/packages">http://de1.mirror.org/packages</A> (from 'myworld')
+LabelA=<A HREF="http://us1.mirror.org/packages">http://us1.mirror.org/packages</A> (from 'myworld')
+LabelA=<A HREF="http://mymirror.org/packages">http://mymirror.org/packages</A>
+
+and 2) Allow some kind of dialog to select multiple images to be 
+downloaded at once (in jigdo-lite), like in using a space- or comma- 
+seperated list.
+
+If this makes sense to you, please let me know so that I can dust off my 
+programmer manuals and start making the changes hopefully resulting in a 
+nice diff for you to apply.
+
+[...snip...]
+&gt;<i> The way this was envisioned by me for the jigdo GUI client (and it's 
+</I>&gt;<i> already implemented there!) was to have people add an
+</I>&gt;<i> &quot;[Include <A HREF="http://example.org/mirrormgr.php">http://example.org/mirrormgr.php</A>]&quot; line inside the .jigdo file. 
+</I>&gt;<i> The server-side PHP script would then output a mirror list with 
+</I>&gt;<i> appropriately weighted mirrors. Based on a scoring algorithm, jigdo would 
+</I>&gt;<i> then try the suggested mirrors first, but fall back to less appropriate 
+</I>&gt;<i> ones for multiple parallel downloads or if a file was not found. A mirror's 
+</I>&gt;<i> overall score was planned to decrease if it was too slow or there were too 
+</I>&gt;<i> many 404s.
+</I>&gt;<i> 
+</I>
+Presumably we could already make full use of this or similar eliminating 
+any need for the above mentioned mirrorlist/server, if only we could 
+specify a label for the include -which is primarily of concern when 
+having multiple images in one .jigdo. Besides, Fedora MirrorManager 
+doesn't have 'weighted' mirrors.
+
+&gt;<i> jigdo-lite doesn't support this, you'd have to create the .jigdo files 
+</I>&gt;<i> dynamically using PHP. :-/
+</I>&gt;<i> 
+</I>&gt;&gt;<i> - The Jigdo GUI client. Well, we could certainly help out here.
+</I>&gt;<i> 
+</I>&gt;<i> That would be awesome!!! :-)
+</I>&gt;<i> My estimate is that the GUI client is about 80% done. Unfortunately, other 
+</I>&gt;<i> things in life caused me to abandon work on this quite a while ago, and I 
+</I>&gt;<i> definitely won't have any time to work on it in the next months. :-(
+</I>&gt;<i> 
+</I>&gt;<i> The code should be in fairly good shape; it is well-documented, the UI 
+</I>&gt;<i> parts are cleanly separated from the application logic etc. OTOH, the 
+</I>&gt;<i> different C++ classes are also fairly complex, I may have been carried away 
+</I>&gt;<i> a bit trying to write a generic, extensible application. Anyone who starts 
+</I>&gt;<i> work on it (including me) will need a while to find their way around.
+</I>&gt;<i> 
+</I>
+As do I (have been browsing the code for a while now looking for the 
+best way to change anything so that I can see the effects and learn what 
+it is the code does exactly) ;-)
+
+&gt;&gt;<i> Other then these issues which we expect might be relevant to big 
+</I>&gt;&gt;<i> releases such as official Fedora Project Releases, let me tell you that 
+</I>&gt;&gt;<i> Fedora Unity (again, not the same ;p), has successfully released a 
+</I>&gt;&gt;<i> number of custom spins via Jigdo[3], and is very, very satisfied with 
+</I>&gt;&gt;<i> the results ;-)
+</I>&gt;<i> 
+</I>&gt;<i> Great, thanks! :)
+</I>&gt;<i> 
+</I>
+Thank you,
+
+Kind regards,
+
+Jeroen van Meeuwen
+-kanarip
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000016.html">Using Jigdo to Release Fedora
+</A></li>
+	<LI>Next message: <A HREF="000018.html">Using Jigdo to Release Fedora
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#17">[ date ]</a>
+              <a href="thread.html#17">[ thread ]</a>
+              <a href="subject.html#17">[ subject ]</a>
+              <a href="author.html#17">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jigdo-user">More information about the Jigdo-user
+mailing list</a><br>
+</body></html>

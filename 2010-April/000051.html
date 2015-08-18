@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> JigdoFUSE
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/jigdo-user/2010-April/index.html" >
+   <LINK REL="made" HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20JigdoFUSE&In-Reply-To=%3C20100407195424.49f2b448%40debelianear%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000050.html">
+   <LINK REL="Next"  HREF="000052.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>JigdoFUSE</H1>
+    <B>Mateusz Poszwa</B> 
+    <A HREF="mailto:jigdo-user%40lists.berlios.de?Subject=Re%3A%20JigdoFUSE&In-Reply-To=%3C20100407195424.49f2b448%40debelianear%3E"
+       TITLE="JigdoFUSE">old4 at o2.pl
+       </A><BR>
+    <I>Wed Apr  7 19:54:24 CEST 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000050.html">JigdoFUSE
+</A></li>
+        <LI>Next message: <A HREF="000052.html">JigdoFUSE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#51">[ date ]</a>
+              <a href="thread.html#51">[ thread ]</a>
+              <a href="subject.html#51">[ subject ]</a>
+              <a href="author.html#51">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Tue, 06 Apr 2010 20:09:13 -0700
+&quot;Neil M.&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/jigdo-user">nabber00 at gmail.com</A>&gt; wrote:
+
+&gt;<i> On 4/5/2010 4:39 AM, Mateusz Poszwa wrote:
+</I>&gt;<i>8 snip &gt;8
+</I>&gt;<i> &gt; Do I need to host source of Jigdo or FUSE
+</I>&gt;<i> &gt; or anything I am using to fulfill the requirements of the license?
+</I>&gt;<i> &gt; (I know it is a silly question. I will accept &quot;Go read by yourself&quot; as
+</I>&gt;<i> &gt; an answer. ;) )
+</I>&gt;<i> 
+</I>&gt;<i> You probably only need to host the source code for your project.  If you
+</I>&gt;<i> are distributing a modified FUSE library or Jigsaw binaries then you
+</I>&gt;<i> need to provide source for those, but I don't think you should need
+</I>&gt;<i> either of those to be modified for what you are doing.
+</I>
+That's right. I use them unmodified. Thank you.
+ 
+&gt;<i> &gt; For now it &quot;just works&quot; - there is no sanity checking, error handling,
+</I>&gt;<i> &gt; optimisation... The code is ugly, but it can generate plenty of Debian
+</I>&gt;<i> &gt; images if configured properly.
+</I>&gt;<i> &gt; 
+</I>&gt;<i> 
+</I>&gt;<i> You should try verifying the checksums for the reassembled ISOs.  I
+</I>&gt;<i> tried creating a reassembly program almost two years ago now and wasn't
+</I>&gt;<i> able to get them to match, users will expect these to check out.  I
+</I>&gt;<i> believe the ISO file is still valid though.  You can find the
+</I>&gt;<i> documentation of my problem in the August 2008 mailing list archive.  My
+</I>&gt;<i> implementation is here at line 1137, mkiso():
+</I>&gt;<i> 
+</I>&gt;<i> <A HREF="http://metalinks.svn.sourceforge.net/viewvc/metalinks/checker/metalink.py?view=markup">http://metalinks.svn.sourceforge.net/viewvc/metalinks/checker/metalink.py?view=markup</A>
+</I> 
+As I said: It works. Images are generated properly. A cmp against
+original image runs for couple of minutes (will improve in future) and
+finally returns with no errors. MD5 sums also match. Well, they must
+because files are identical.
+
+As for your problem: Well, I wish I knew Python... My friend
+(mentioned earlier) states that a programmer doesn't need to know Python
+in order to be able to read it. Unfortunately it's not true for me,
+because Python has some magic I am unfamiliar with. As far as I
+understand your code you read 1MiB blocks of data (lines 1098 and
+1123; and yes, I've read more than 30 lines of code to get it) from
+template file and compare its beginning with a set of type strings and
+add uncompressed data to a buffer if you encounter &quot;BZIP&quot; or
+&quot;DATA&quot; (which I am missing in JigdoFUSE, because I've never seen it
+before). You completely ignore the &quot;DESC&quot; section, which describes the
+template file and it is where you should start to parse the template.
+I think your problem is caused by the fact you read data in fixed size
+blocks. &quot;BZIP&quot; entries are not always 1MiB long, so you probably
+extract only the first of them and the rest gets ignored as you try to
+compare with type strings somewhere in the middle of them.
+
+&gt;<i> &gt; You are the second to know about it (my friend was first) and I would
+</I>&gt;<i> &gt; like to know your opinion. I may also need help in the future
+</I>&gt;<i> &gt; (ie. I could not find any specification of template files - I figured it
+</I>&gt;<i> &gt; out myself, so JigdoFUSE may be incompatible with untested images).
+</I>&gt;<i> &gt; 
+</I>&gt;<i> 
+</I>&gt;<i> This is the closest you get to a specification:
+</I>&gt;<i> 
+</I>&gt;<i> <A HREF="http://atterer.net/jigdo/debian-jigdo-mini-howto/x157.html">http://atterer.net/jigdo/debian-jigdo-mini-howto/x157.html</A>
+</I>
+If this is the most detailed description of template file that can be
+found it does not meet my definition of specification. It is more an
+overview on what jigdo does when it resembles the file rather then a
+description of template file itself. I think I will publish my version,
+as it is far more detailed, but I will need to &quot;dress it up&quot; a bit,
+because I've been writing it for myself. This may help you to cope with
+your problem.
+
+&gt;<i> The Jigdo tools seem to do more than what is described here.  For this
+</I>&gt;<i> reason I would not recommend spending a lot of time trying to figure
+</I>&gt;<i> things out.  You will quickly get into doing a binary diff on large .iso
+</I>&gt;<i> files.
+</I> 
+In fact it took me a week or so of &quot;from time to time&quot; work (digging
+through the hexdumps of various template files and sometimes reading
+the source of jigdo; `jigdo-file list-template` was also useful). I am
+pretty sure I did it quite right, because it works ;-).
+
+
+Thank you for replying. I was afraid the jigdo-user list was dead.
+Now I know that there is someone here ;-).
+
+-- 
+Mateusz &quot;Old&quot; Poszwa
+
+Still sorry for my poor English,
+and for replying with great delay. I'm GMT+1+1 (Poland, summer time).
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000050.html">JigdoFUSE
+</A></li>
+	<LI>Next message: <A HREF="000052.html">JigdoFUSE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#51">[ date ]</a>
+              <a href="thread.html#51">[ thread ]</a>
+              <a href="subject.html#51">[ subject ]</a>
+              <a href="author.html#51">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/jigdo-user">More information about the Jigdo-user
+mailing list</a><br>
+</body></html>
